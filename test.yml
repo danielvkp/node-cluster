@@ -1,0 +1,12 @@
+config:
+  target: "ws://localhost:3000/signed/listen/eyJfcmFpbHMiOnsibWVzc2FnZSI6ImV5SnNhV05sYm5ObFgydGxlU0k2SW1ZeU5UZGxZMlJoWkMwMUluMD0iLCJleHAiOiIyMDIxLTA2LTA0VDIxOjE1OjIyLjA2NFoiLCJwdXIiOm51bGx9fQ==--9a7be54ed206e964f05d73232821fd90b4856388abf3a817325471f54b76081d/B478047F21D56C9DDFA422BE1F7149AF"
+  phases:
+    - duration: 120  # Test for 20 seconds
+      arrivalRate: 10 # Every second, add 10 users
+      rampTo: 50 # Ramp it up to 100 users over the 20s period
+      name: "Ramping up the load"
+scenarios:
+  - engine: "ws"
+    flow:
+      - send: '{"type":"ping","payload":{}}'
+      - think: 5

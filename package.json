@@ -1,0 +1,46 @@
+{
+  "name": "web_socket",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "12.17.x"
+  },
+  "scripts": {
+    "start": "node src/index",
+    "test": "jest",
+    "up": "docker-compose up",
+    "down": "docker-compose down"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bufferutil": "^4.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^9.0.2",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "redis": "^3.1.2",
+    "redis-clustr": "^1.7.0",
+    "utf-8-validate": "^5.0.5",
+    "uuid": "^8.3.2",
+    "winston": "^3.3.3",
+    "ws": "^7.5.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.29.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "jest": "^27.0.5",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.3.1"
+  }
+}
