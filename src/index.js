@@ -11,8 +11,35 @@ const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 const process = require('process');
 /* End cluster */
+const fetch = require('node-fetch');
 
 const unix_timestamp = dt => WsHelper.unixTimestamp(dt)
+
+function heartbeat_api_call(device_id){
+  const headers = {
+      'key': 'Authorization',
+      'value': 'Bearer dba0abf2d9cd94bc35541b32388f61858e200d1c656a3b84fce2dd66d0331411',
+      'type': 'text'
+  }
+
+  const body = {
+    mode: 'raw',
+    raw: `{\r\n \"lastConnected\": \"${unix_timestamp()}\",\r\n  \"connectivity\": 2\r\n}\r\n`,
+    options: {
+      raw: {
+        language: 'json'
+      }
+    }
+  }
+
+  fetch(`https://device-heartbeat-service-eu.herokuapp.com/api/devices//heartbeat`, {
+        method: 'put',
+        body:    JSON.stringify(body),
+        headers: headers,
+    })
+    .then(res => res.json())
+    .then(json => console.log(json));
+}
 
 function write_log(lg, log_to_file = false) {
   let logType = log_to_file ? 'error' : 'info'
@@ -34,9 +61,11 @@ function handle_message(data, socket, fingerprint) {
   } catch (e) {
     return write_log('Device ' + fingerprint + ' sent malformed JSON ' + data, true)
   }
+
   if (!dataObj.payload) {
-    dataObj.payload = 'ping'
+     dataObj.payload = 'ping'
   }
+
   MessageHandler.create(dataObj, socket, fingerprint, sideKiqPool).handle()
 }
 
@@ -64,12 +93,14 @@ function send_heartbeat(fingerprint, socket) {
 
     write_log('Device ' + fingerprint + ' heartbeat being refreshed!');
 
-    queue_message(fingerprint, {
+    heartbeat_api_call(fingerprint)
+
+    /*queue_message(fingerprint, {
         type: 'heartbeat',
         timestamp: currTimestamp
       },
       'heartbeat'
-    );
+    );*/
   }
 }
 

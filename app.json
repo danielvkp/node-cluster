@@ -1,0 +1,269 @@
+{
+	"info": {
+		"_postman_id": "66fb5dec-c028-4b8b-afb4-2d510bd42433",
+		"name": "device_heartbeat_service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/devices/bulk",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer localhostapitoken",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"deviceIds\": [\"B41528737A1E6D226233EA5AD73A6FF1\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/devices/bulk",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"devices",
+						"bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/devices",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const current_date = new Date().toISOString();",
+							"pm.environment.set(\"current_date\", current_date);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer localhostapitoken",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"deviceId\": \"B41528737A1E6D226233EA5AD73A6FF1\",\n\t\"accountId\": 10978,\n    \"connectivity\": 2,\n\t\"deviceType\": 1,\n    \"lastConnected\": \"{{current_date}}\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/devices",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/devices",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer localhostapitoken",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/devices?accountId=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"devices"
+					],
+					"query": [
+						{
+							"key": "accountId",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/devices/:id/heartbeat",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const current_date = new Date().toISOString();\r",
+							"pm.environment.set(\"current_date\", current_date);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer localhostapitoken",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"lastConnected\": \"{{current_date}}\",\r\n    \"connectivity\": 2\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/devices/:deviceId/heartbeat",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"devices",
+						":deviceId",
+						"heartbeat"
+					],
+					"variable": [
+						{
+							"key": "deviceId",
+							"value": "B41528737A1E6D226233EA5AD73A6FF1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/devices/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer localhostapitoken",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/devices/:deviceIds",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"devices",
+						":deviceIds"
+					],
+					"variable": [
+						{
+							"key": "deviceIds",
+							"value": "ABCDE5081E342913C3ED1AA53622577B"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/admin/devices/statistics/connectivity",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer localhostadminapitoken",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/admin/devices/statistics/connectivity",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"admin",
+						"devices",
+						"statistics",
+						"connectivity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/admin/devices/snapshot",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer localhostadminapitoken",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/admin/devices/snapshot",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"admin",
+						"devices",
+						"snapshot"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

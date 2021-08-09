@@ -39,7 +39,6 @@ class MessageQueuer {
   }
 
   enqueue() {
-    console.log('ENCOLADOR ----------', this.message_type)
     let job_queue = this.get_job_queue(this.message_type)
 
     if (!this.message.id) {
